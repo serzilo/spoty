@@ -1,14 +1,13 @@
 const axios = require('axios');
 const endpoints = require('./endpoints');
+const credentials = require('./configs/credentials');
 
 
 console.log('init');
 
-const TOKEN = 'hdsfhkgksdfkgsdg';
-
 const bodyParameters = {};
 const config = {
-	headers: {'Authorization': `Bearer ${TOKEN}`},
+	headers: {'Authorization': `Bearer ${credentials.clientSecret}`},
 };
 
 axios.get(
