@@ -8,7 +8,7 @@ const TOKEN = 'hdsfhkgksdfkgsdg';
 
 const bodyParameters = {};
 const config = {
-	headers: {'Authorization': `bearer ${TOKEN}`},
+	headers: {'Authorization': `Bearer ${TOKEN}`},
 };
 
 axios.get(
