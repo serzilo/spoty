@@ -25,6 +25,7 @@
     "ramda": "^0.25.0"
   },
   "_moduleAliases": {
-    "@configs": "configs"
+    "@configs": "configs",
+    "@utils": "utils"
   }
 }

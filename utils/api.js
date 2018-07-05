@@ -1,12 +1,11 @@
 const axios = require('axios');
 const querystring = require('querystring');
-const ramda = require('ramda');
 const credentialsConfig = require('@configs/credentials');
 const apiConfig = require('@configs/api');
 
 
 const getToken = () => {
-	const endpoint = 'https://accounts.spotify.com/api/token';
+	const endpoint = apiConfig.getTokenUrl;
 	const encodedCredentials = Buffer.from(`${credentialsConfig.clientId}:${credentialsConfig.clientSecret}`).toString('base64');
 	const credentials = querystring.stringify({ grant_type: 'client_credentials' });
 
@@ -33,30 +32,50 @@ const getToken = () => {
 		});
 };
 
+
 const searchArtist = (query, authData) => {
 	console.log('// searchArtist');
 
-	const endpoint = `${apiConfig.url}search?q=${query}&type=artist`;
+	return _search(query, 'artist', authData);
+};
+
+
+const searchAlbum = (query, authData) => {
+	console.log('// searchAlbum');
+
+	return _search(query, 'album', authData);
+};
+
+
+const _search = (query, type, authData) => {
+	const endpoint = `${apiConfig.url}search?q=${query}&type=${type}`;
 	const config = {
 		headers: {'Authorization': `${authData.token_type} ${authData.access_token}`},
 	};
 
-	return axios.get(
-		endpoint,
-		config,
-	)
+	return axios
+		.get(
+			endpoint,
+			config,
+		)
 		.then(response => {
-			console.log('result');
+			console.log('search result');
 			console.log(response.data);
+
+			return response;
 		})
 		.catch(error => {
 			console.error('error');
 			console.log(error);
 			console.log(error.message);
+
+			return error;
 		});
-	};
+};
+
 
 module.exports = {
 	getToken,
 	searchArtist,
+	searchAlbum,
 };
