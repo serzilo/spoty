@@ -22,12 +22,11 @@ const getToken = () => {
 		.then((response) => {
 			console.log('// getToken');
 			console.log(response.data);
-			console.log('// getToken END');
 
 			return response.data;
 		})
 		.catch((error) => {
-			console.log('error');
+			console.log('getToken error');
 			console.log(error);
 		});
 };
@@ -65,9 +64,9 @@ const _search = (query, type, authData) => {
 			return response;
 		})
 		.catch(error => {
-			console.error('error');
-			console.log(error);
-			console.log(error.message);
+			console.log('ERROR _search: ', error);
+			console.log('ERROR message: ', error.message);
+			console.log('ERROR status: ', error.response.status);
 
 			return error;
 		});
