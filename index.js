@@ -5,15 +5,17 @@ const ramda = require('ramda');
 console.log('init');
 
 api
-	.getToken()
-	.then(auth => {
-		// return api.searchArtist('Muse', auth);
-		return api.searchAlbum('paradigm', auth);
-	})
+	.searchArtist('Muse')
+	// .searchAlbum('paradigm')
 	.then(result => {
-		console.log(ramda.pathOr([], ['data', 'artists', 'items'], result));
-		console.log(ramda.pathOr([], ['data', 'albums', 'items'], result));
+		// console.log(ramda.pathOr([], ['data', 'artists', 'items'], result));
+		// console.log(ramda.pathOr([], ['data', 'albums', 'items'], result));
+
+		// console.log(result);
 	});
+
+
+
 
 
 
