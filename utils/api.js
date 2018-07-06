@@ -11,6 +11,9 @@ let authData = {
 	expires_in: null,
 };
 
+const searchWordsArray = ['a', 'b', 'c', 'm'];
+let currentIndex = 0;
+
 
 const getToken = () => {
 	console.log('// getToken');
@@ -43,24 +46,34 @@ const getToken = () => {
 };
 
 
-const searchArtist = (query) => {
+const searchArtist = () => {
 	console.log('// searchArtist');
 
-	return _search(query, 'artist');
+	return _search(searchWordsArray[currentIndex], 'artist');
 };
 
 
-const searchAlbum = (query) => {
+const searchAlbum = () => {
 	console.log('// searchAlbum');
 
-	return _search(query, 'album');
+	return _search(searchWordsArray[currentIndex], 'album');
+};
+
+const _getNextWord = () => {
+	currentIndex += 1;
+
+	if (searchWordsArray[currentIndex]) {
+		return searchWordsArray[currentIndex];
+	}
+
+	return false;
 };
 
 
 const _search = (
 	query = '',
 	type = 'artist',
-	endpoint = `${apiConfig.url}search?q=${query}&type=${type}`,
+	endpoint = `${apiConfig.url}search?q=${query}&type=${type}&limit=50`,
 ) => {
 	console.log('_search', query, type);
 
@@ -93,8 +106,16 @@ const _search = (
 
 			console.log('nextLink: ', nextLink);
 
-			if (nextLink) {
-				_search(null, type, nextLink);
+			// if (nextLink) {
+			// 	setTimeout(() => {
+			// 		_search(null, type, nextLink);
+			// 	}, 500);
+			// }
+
+			const nextQueryWord = _getNextWord();
+
+			if (nextQueryWord) {
+				_search(nextQueryWord, type);
 			}
 
 		})

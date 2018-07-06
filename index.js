@@ -5,8 +5,8 @@ const ramda = require('ramda');
 console.log('init');
 
 api
-	.searchArtist('Muse')
-	// .searchAlbum('paradigm')
+	.searchArtist()
+	// .searchAlbum()
 	.then(result => {
 		// console.log(ramda.pathOr([], ['data', 'artists', 'items'], result));
 		// console.log(ramda.pathOr([], ['data', 'albums', 'items'], result));
